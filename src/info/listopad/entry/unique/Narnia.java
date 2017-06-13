@@ -12,4 +12,11 @@ public class Narnia { // todo extract interface
 	final List<int[]> backing = new LinkedList<int[]>();
 	final Primes primes;
 	final Growth growth;
+
+	public Narnia(Primes primes, Growth growth) {
+		this.primes = primes;
+		this.growth = growth;
+	}
+
+	/////
 }
