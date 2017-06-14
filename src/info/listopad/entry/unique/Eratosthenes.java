@@ -3,10 +3,13 @@ package info.listopad.entry.unique;
 import java.util.Arrays;
 /**
  * An extremely lazy implementation of Primes.
+ * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Incremental_sieve
  */
 public class Eratosthenes implements Primes {
+
+	// TODO expose a thread-safe implementation or facade
 	
-	int[] harvest = {
+	private int[] harvest = {
 			2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37,
 			41, 43, 47, 53, 59, 61, 67, 71, 73, 79,
 			83, 89, 97, 101, 103, 107, 109, 113, 127,
@@ -24,8 +27,9 @@ public class Eratosthenes implements Primes {
 			659, 661, 673, 677, 683, 691, 701, 709,
 	};
 	
-	int nextPrimeIndex = harvest.length, lastPrimeFound = harvest[nextPrimeIndex - 1];
+	private int nextPrimeIndex = harvest.length, lastPrimeFound = harvest[nextPrimeIndex - 1];
 
+	@SuppressWarnings("UnnecessaryLabelOnBreakStatement") // I like clarity
 	@Override
 	public int moreThan(int value) {
 		int tested = lastPrimeFound;
@@ -54,7 +58,7 @@ public class Eratosthenes implements Primes {
 	}
 
 	private void grow() {
-		int[] newHarvest = new int[harvest.length * 2];
+		final int[] newHarvest = new int[harvest.length * 2];
 		System.arraycopy(harvest, 0, newHarvest, 0, nextPrimeIndex);
 		harvest = newHarvest;
 	}
